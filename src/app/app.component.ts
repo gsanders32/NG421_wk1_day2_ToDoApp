@@ -25,13 +25,15 @@ export class AppComponent {
 
   // adds a todo to our list
   addTodo(): void {
-    this.todoList.push({
-      title: this.todoTitle,
-      isDone: false,
-      dateAdded: Date.now(),
-      dateCompleted: ''
-    });
-
+    // stop null todo
+    if (this.todoTitle.trim() !== '') {
+      this.todoList.push({
+        title: this.todoTitle,
+        isDone: false,
+        dateAdded: Date.now(),
+        dateCompleted: ''
+      });
+    }
     // resets our todoTitle variable to an empty string
     this.todoTitle = '';
   }
