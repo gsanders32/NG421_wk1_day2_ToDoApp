@@ -7,19 +7,32 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <h1 align="center">Todo List</h1>
-<div class="offset-1 col-md-10">
-    <input type="text" class="todo-input" placeholder="Add next todo here" [(ngModel)]="todoTitle" (keyup.enter)=addTodo()>
-
-    <ul align="left" class="list-group">
-        <li class="list-group-item" *ngFor="let todo of todoList">
-            <div class="view">
-            <label>{{todo.title}}</label>
-            <div class="float-right">
-                <button type="button" (click)= deleteTodo(todo) class="btn btn-danger btn-sm">Delete</button>
+<div class="form-group row col-md-10 offset-1">
+    <div class="col-md-12">
+        <label>Add a new Todo Item</label>
+        <div class="input-group">
+            <div class="input-group-append">
+                <button type="button" (click)=addTodo($event) class="btn btn-primary btn-sm">Add</button>
             </div>
-            </div>
-        </li>
-    </ul>
+            <input type="text" class="todo-input form-control" placeholder="Add next todo here" name="addItem" [(ngModel)]="todoTitle" (keyup.enter)=addTodo()>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <hr>
+        <ul align="left" class="list-group">
+            <li class="list-group-item" *ngFor="let todo of todoList">
+                <div class="view">
+                    <label *ngIf="todo.isDone" style="text-decoration: line-through">Date completed: {{todo.dateCompleted | date: 'shortDate'}} | Description: {{todo.title}}</label>
+                    <label *ngIf="!todo.isDone">Date added: {{todo.dateAdded | date: 'shortDate'}} | Description: {{todo.title}}</label>
+                    <div class="float-right">
+                        <button *ngIf="!todo.isDone" type="button" (click)= finishedTodo(todo) class="btn btn-success btn-sm">Mark Complete</button>
+                        <button *ngIf="todo.isDone" type="button" (click)= finishedTodo(todo) class="btn btn-success btn-sm">Mark Incomplete</button>
+                        | <button type="button" (click)= deleteTodo(todo) class="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
